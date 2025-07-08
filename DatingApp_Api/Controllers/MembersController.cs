@@ -55,7 +55,7 @@ namespace DatingApp_Api.Controllers
             _context.Entry(appUser).State = EntityState.Modified;
 
             try
-            {
+            {   
                 await _context.SaveChangesAsync();
             }
             catch (DbUpdateConcurrencyException)
