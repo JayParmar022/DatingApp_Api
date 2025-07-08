@@ -1,4 +1,4 @@
-using DatingApp_Api.Data;
+﻿using DatingApp_Api.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,16 +12,14 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.MapOpenApi();
-        //  app.UseSwagger();
-        //app.UseSwaggerUI();
-//}
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:4200", "https://localhost:4200"));
+
+
 
 app.UseHttpsRedirection();
 
