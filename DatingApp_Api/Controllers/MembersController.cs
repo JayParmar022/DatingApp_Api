@@ -20,7 +20,7 @@ namespace DatingApp_Api.Controllers
             _context = context;
         }
 
-        [Authorize]
+        
         // GET: api/Members
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AppUser>>> GetUsers()
@@ -28,6 +28,7 @@ namespace DatingApp_Api.Controllers
             return await _context.Users.ToListAsync();
         }
 
+        [Authorize]
         // GET: api/Members/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AppUser>> GetAppUser(string id)
