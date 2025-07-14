@@ -1,48 +1,43 @@
-import { HttpClient } from '@angular/common/http';
-import { Component, inject, OnInit, signal, Signal } from '@angular/core';
-import { lastValueFrom } from 'rxjs';
+import { Component, inject} from '@angular/core';
 import { Nav } from "../layout/nav/nav";
-import { NgForOf } from '@angular/common';
-import { AccountService } from '../core/service/account-service';
-import { Home } from "../features/home/home";
-import { User } from '../types/user';
-
+import { Router, RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-root',
-  imports: [Nav, NgForOf, Home],
+  imports: [Nav, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App implements OnInit {
+export class App {
 
-  protected accountService = inject(AccountService)
-  private http = inject(HttpClient);
-  protected title = 'Dating App';
-  protected members = signal<User[]>([]);
+ // protected accountService = inject(AccountService);
+  protected router = inject(Router);
+  // private http = inject(HttpClient);
+  // protected title = 'Dating App';
+  // protected members = signal<User[]>([]);
 
-  async ngOnInit() {
-    this.members.set( await this.getmembers());
-    this.setCurrentUser();
-  }
+  // async ngOnInit() {
+  //   this.members.set( await this.getmembers());
+  //   this.setCurrentUser();
+  // }
 
-  setCurrentUser(){
-    const userString = localStorage.getItem('user');
-    if(!userString) return;
-    const user = JSON.parse(userString);
-    this.accountService.currentUser.set(user);
-  }
-  getmembers(){
-      try{
-        return lastValueFrom(this.http.get<User[]>('https://localhost:5278/api/members'));
-      }catch (error){
-        console.log(error);
-        throw error;
-      }
-  }
+  // setCurrentUser(){
+  //   const userString = localStorage.getItem('user');
+  //   if(!userString) return;
+  //   const user = JSON.parse(userString);
+  //   this.accountService.currentUser.set(user);
+  // }
+  // getmembers(){
+  //     try{
+  //       return lastValueFrom(this.http.get<User[]>('https://localhost:5278/api/members'));
+  //     }catch (error){
+  //       console.log(error);
+  //       throw error;
+  //     }
+  // }
 
-  trackByIndex(index: number, member: any): number {
-    return index;
-  }
+  // trackByIndex(index: number, member: any): number {
+  //   return index;
+  // }
 
 }
