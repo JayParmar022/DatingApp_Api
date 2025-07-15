@@ -5,6 +5,9 @@ import { MemberList } from '../features/members/member-list/member-list';
 import { Lists } from '../features/lists/lists';
 import { Messages } from '../features/messages/messages';
 import { authGuard } from '../core/guards/auth-guard';
+import { TestError } from '../features/test-error/test-error';
+import { NotFound } from '../shared/errors/not-found/not-found';
+import { ServerError } from '../shared/errors/server-error/server-error';
 
 export const routes: Routes = [
     {path: '', component:Home},
@@ -19,5 +22,7 @@ export const routes: Routes = [
             {path: 'messages',component:Messages, canActivate:[authGuard]},
         ]
     },
-    {path: '**', component:Home}
+    {path: 'test-error', component: TestError},
+    {path: 'server-error', component: ServerError},
+    {path: '**', component:NotFound}
 ];
