@@ -1,0 +1,17 @@
+@if(member(); as member){
+    <div routerLink="/members/{{member.id}}" 
+    class="relative w-72 h-96 rounded-lg shadow-lg overflow-hidden group cursor-pointer">
+  <img
+    [src]="member?.imageUrl || '/user.png'"
+    [alt]="member.displayName + ' image'"
+    class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+  />
+  <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/80 to-transparent p-4 text-white flex justify-between items-end">
+    <div>
+      <h3 class="text-lg font-semibold">{{ member.displayName }}, {{member.dateOfBirth | age}}</h3>
+      <p class="text-sm text-gray-300">{{ member.city }}</p>
+    </div>
+  </div>
+</div>
+}
+

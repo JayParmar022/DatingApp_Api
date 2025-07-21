@@ -43,7 +43,6 @@ namespace DatingApp_Api.Controllers
             {
                 return NotFound();
             }
-
             return member;
         }
 
@@ -124,7 +123,6 @@ namespace DatingApp_Api.Controllers
 
             return NoContent();
         }
-
         private bool AppUserExists(string id)
         {
             return _context.Users.Any(e => e.Id == id);

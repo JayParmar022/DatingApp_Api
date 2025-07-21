@@ -13,6 +13,7 @@ namespace DatingApp_Api.Extensions
                 Id = user.Id,
                 DisplayName = user.DisplayName,
                 Email = user.Email,
+                ImageUrl = user.ImageUrl,
                 Token = tokenService.CreateToken(user)
             };
         }
