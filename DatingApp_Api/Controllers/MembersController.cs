@@ -10,9 +10,13 @@ using DatingApp_Api.Entities;
 using Microsoft.AspNetCore.Authorization;
 using DatingApp_Api.Interfaces;
 using Microsoft.VisualBasic;
+using System.Security.Claims;
+using DatingApp_Api.Dtos;
+using DatingApp_Api.Extensions;
 
 namespace DatingApp_Api.Controllers
 {
+    [Authorize]
     public class MembersController : BaseApiController
     {
         private readonly AppDbContext _context;
@@ -32,7 +36,7 @@ namespace DatingApp_Api.Controllers
             return Ok(await _memberRepository.GetMembersAsync());
         }
 
-        [Authorize]
+       
         // GET: api/Members/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Member>> GetMember(string id)
@@ -50,6 +54,33 @@ namespace DatingApp_Api.Controllers
         public async Task<ActionResult<IReadOnlyList<Photo>>> GetMemberPhotos(string id)
         {
             return Ok(await _memberRepository.GetPhotosForMemberAsync(id));
+        }
+
+
+        [HttpPut]
+        public async Task<ActionResult> UpdateMember(MemberUpdateDto memberUpdateDto)
+        {
+            var memberId = User.GetMemberId();
+
+            if (memberId == null) return BadRequest("Oops - no id found  in token");
+
+            var member = await _memberRepository.GetMemberForUpdate (memberId);
+            
+            if (member == null) return BadRequest("Cloude not get member");
+
+            member.DisplayName = memberUpdateDto.DisplayName ?? member.DisplayName;
+            member.Description = memberUpdateDto.Description ?? member.Description;
+            member.City = memberUpdateDto.City ?? member.City;
+            member.Country = memberUpdateDto.Country ?? member.Country;
+
+            member.User.DisplayName = memberUpdateDto.DisplayName ?? member.DisplayName;
+
+            _memberRepository.Update(member);
+
+            if(await _memberRepository.SaveAllAsync()) return NoContent();
+
+            return BadRequest("Failed to Update Member");
+                    
         }
 
         // PUT: api/Members/5

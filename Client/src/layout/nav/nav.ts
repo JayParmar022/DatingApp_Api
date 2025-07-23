@@ -4,6 +4,7 @@ import { AccountService } from '../../core/service/account-service';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { ToastService } from '../../core/service/toast-service';
 import { themes } from '../themes';
+import { BusyService } from '../../core/service/busy-service';
 
 @Component({
   selector: 'app-nav',
@@ -16,7 +17,7 @@ export class Nav implements OnInit {
   protected accountservice = inject(AccountService);
   private toast = inject(ToastService);
   protected router = inject(Router);
-
+  protected busyServic = inject(BusyService);
   protected creds: any = {};
   protected loggedIn = signal(false);
   protected selectedTheme = signal<string>(localStorage.getItem('theme') || 'light');
