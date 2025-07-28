@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DatingApp_Api.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250716061110_AddMembersEntity")]
-    partial class AddMembersEntity
+    [Migration("20250725083818_newDb")]
+    partial class newDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -135,7 +135,7 @@ namespace DatingApp_Api.Migrations
             modelBuilder.Entity("DatingApp_Api.Entities.Photo", b =>
                 {
                     b.HasOne("DatingApp_Api.Entities.Member", "Member")
-                        .WithMany()
+                        .WithMany("Photos")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -147,6 +147,11 @@ namespace DatingApp_Api.Migrations
                 {
                     b.Navigation("Member")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DatingApp_Api.Entities.Member", b =>
+                {
+                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

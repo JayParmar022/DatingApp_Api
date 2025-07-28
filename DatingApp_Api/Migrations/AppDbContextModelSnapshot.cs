@@ -132,7 +132,7 @@ namespace DatingApp_Api.Migrations
             modelBuilder.Entity("DatingApp_Api.Entities.Photo", b =>
                 {
                     b.HasOne("DatingApp_Api.Entities.Member", "Member")
-                        .WithMany()
+                        .WithMany("Photos")
                         .HasForeignKey("MemberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -144,6 +144,11 @@ namespace DatingApp_Api.Migrations
                 {
                     b.Navigation("Member")
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("DatingApp_Api.Entities.Member", b =>
+                {
+                    b.Navigation("Photos");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
 ﻿using DatingApp_Api.Data;
+using DatingApp_Api.Helpers;
 using DatingApp_Api.Interfaces;
 using DatingApp_Api.Middleware;
 using DatingApp_Api.Services;
@@ -20,9 +21,11 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 builder.Services.AddCors();
+builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
+builder.Services.AddScoped<IPhotoService, PhotoService>();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     .AddJwtBearer(Option =>

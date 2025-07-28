@@ -17,7 +17,7 @@ export class Nav implements OnInit {
   protected accountservice = inject(AccountService);
   private toast = inject(ToastService);
   protected router = inject(Router);
-  protected busyServic = inject(BusyService);
+  protected busyService = inject(BusyService);
   protected creds: any = {};
   protected loggedIn = signal(false);
   protected selectedTheme = signal<string>(localStorage.getItem('theme') || 'light');

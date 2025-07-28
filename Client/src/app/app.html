@@ -1,3 +1,7 @@
+<div *ngIf="busyService.busyRequestCount() > 0" class="spinner-overlay">
+  <div class="loading loading-spinner text-accent"></div>
+</div>
+
 <app-nav />
 <!-- <app-home [membersFromApp] = "members()" /> -->
 
