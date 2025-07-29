@@ -28,7 +28,7 @@ namespace DatingApp_Api.Controllers
                 DisplayName = registerDto.DisplayName,
                 Email = registerDto.Email,
                 PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-                Passwordsalt = hmac.Key
+                Passwordsalt = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password))
             };
 
             
