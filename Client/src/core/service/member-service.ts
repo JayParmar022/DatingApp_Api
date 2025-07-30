@@ -19,7 +19,7 @@ export class MemberService {
   getMembers(pageNumber = 1,pageSize=5){
     let params = new HttpParams();
 
-    params = params.append('paheNumber',pageNumber);
+    params = params.append('pageNumber',pageNumber);
     params = params.append('pageSize',pageSize);
     return this.http.get<paginatedResult<Member>>(this.baseUrl+'members',{params});
   }
