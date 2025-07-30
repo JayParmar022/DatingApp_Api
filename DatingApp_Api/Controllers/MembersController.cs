@@ -7,6 +7,7 @@ using DatingApp_Api.Interfaces;
 using DatingApp_Api.Dtos;
 using DatingApp_Api.Extensions;
 using NuGet.Packaging;
+using DatingApp_Api.Helpers;
 
 namespace DatingApp_Api.Controllers
 {
@@ -28,9 +29,9 @@ namespace DatingApp_Api.Controllers
         
         // GET: api/Members
         [HttpGet]
-        public async Task<ActionResult<IReadOnlyList<Member>>> GetMembers()
+        public async Task<ActionResult<IReadOnlyList<Member>>> GetMembers([FromQuery] PagingParams pagingParams)
         {
-            return Ok(await _memberRepository.GetMembersAsync());
+            return Ok(await _memberRepository.GetMembersAsync(pagingParams));
         }
 
        

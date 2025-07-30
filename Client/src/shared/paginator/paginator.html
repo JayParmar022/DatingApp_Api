@@ -1,0 +1,45 @@
+<div class="flex flex-wrap items-center justify-between gap-4 py-4 px-5 bg-white shadow-md rounded-xl border">
+  <!-- Items per page -->
+  <div class="flex items-center gap-2">
+    <span class="text-sm font-medium text-gray-700">Items per page:</span>
+    <select
+      class="select select-bordered select-sm w-24"
+      (change)="onPageChange(undefined, $event.target)">
+      @for (size of pageSizeOptions(); track $index) {
+        <option [value]="size" [selected]="size === pageSize()">{{ size }}</option>
+      }
+    </select>
+  </div>
+
+  <!-- Page info -->
+  <div class="text-sm text-gray-600">
+    Showing <span class="font-medium">{{ (pageNumber() - 1) * pageSize() + 1 }}</span>
+    to <span class="font-medium">{{ lastItemIndex() }}</span>
+    of <span class="font-medium">{{ totalCount() }}</span> results
+  </div>
+
+  <!-- Navigation -->
+  <div class="flex items-center gap-2">
+    <button
+      class="btn btn-sm btn-outline rounded-full"
+      [disabled]="pageNumber() === 1"
+      (click)="onPageChange(pageNumber() - 1)">
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+           viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"></path>
+      </svg>
+      <span class="ml-1">Prev</span>
+    </button>
+
+    <button
+      class="btn btn-sm btn-outline rounded-full"
+      [disabled]="pageNumber() >= totalPage()"
+      (click)="onPageChange(pageNumber() + 1)">
+      <span class="mr-1">Next</span>
+      <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2"
+           viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"></path>
+      </svg>
+    </button>
+  </div>
+</div>

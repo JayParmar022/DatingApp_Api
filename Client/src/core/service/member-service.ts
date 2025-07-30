@@ -1,8 +1,10 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { EditableMember, Member, Photo } from '../../types/member';
-import { single, tap } from 'rxjs';
+import { tap } from 'rxjs';
+import { paginatedResult } from '../../types/pagination';
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +16,12 @@ export class MemberService {
   editMode = signal(false);
   member = signal<Member | null>(null);
 
-  getMembers(){
-    return this.http.get<Member[]>(this.baseUrl+'members');
+  getMembers(pageNumber = 1,pageSize=5){
+    let params = new HttpParams();
+
+    params = params.append('pageNumber',pageNumber);
+    params = params.append('pageSize',pageSize);
+    return this.http.get<paginatedResult<Member>>(this.baseUrl+'members',{params});
   }
 
   getMember(id: string){
@@ -48,3 +54,7 @@ export class MemberService {
     return this.http.delete(this.baseUrl + 'members/delete-photo/' + photoId);
   }
 }
+function PaginatedResult<T>(arg0: string, arg1: { params: HttpParams; }) {
+  throw new Error('Function not implemented.');
+}
+
