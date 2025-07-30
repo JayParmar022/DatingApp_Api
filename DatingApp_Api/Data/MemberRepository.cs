@@ -21,6 +21,7 @@ namespace DatingApp_Api.Data
 
         public async Task<IReadOnlyList<Member>> GetMembersAsync()
         {
+            var query  = context.Members.AsQueryable();
             return await context.Members
                 .ToListAsync();
         }
