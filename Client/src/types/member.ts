@@ -14,8 +14,6 @@ export type Member = {
 export type Photo = {
   id: number
   url: string
-  publicId: any
-  memberId: string
 }
 
 export type EditableMember={
