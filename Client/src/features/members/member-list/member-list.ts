@@ -1,6 +1,6 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { MemberService } from '../../../core/service/member-service';
-import { Member } from '../../../types/member';
+import { Member, MemberParams } from '../../../types/member';
 import { MemberCard } from "../member-card/member-card";
 import { paginatedResult } from '../../../types/pagination';
 import { Paginator } from "../../../shared/paginator/paginator";
@@ -32,6 +32,24 @@ export class MemberList implements OnInit{
   onPageChange(event: {pageNumber:number, pageSize: number}){
     this.pageSize = event.pageSize;
     this.pageNumber = event.pageNumber;
+    this.loadMembers();
+  }
+
+  openModal(){
+    this.filterModal.open();
+  }
+
+  onClose(){
+    console.log('Modal closed')
+  }
+
+  onFilterChange(data: MemberParams){
+    this.memberParams = data;
+    this.loadMembers();
+  }
+
+  resetFilters(){
+    this.memberParams = new MemberParams();
     this.loadMembers();
   }
 }
