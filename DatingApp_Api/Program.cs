@@ -22,7 +22,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnectio
 builder.Services.AddOpenApi();
 builder.Services.AddCors();
 builder.Services.Configure<CloudinarySettings>(builder.Configuration.GetSection("CloudinarySettings"));
-
+builder.Services.AddScoped<LogUserActivity>();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<IPhotoService, PhotoService>();
